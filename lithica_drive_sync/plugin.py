@@ -24,7 +24,7 @@ class LithicaDriveSyncPlugin:
         self.action.triggered.connect(self.show_dock)
         self.iface.addPluginToVectorMenu("Lithica Cloud Sync", self.action)
         self.iface.addToolBarIcon(self.action)
-        
+
         # Show the dock widget automatically only on first installation/run
         settings = QgsSettings()
         if not settings.value("LithicaDriveSync/has_run_before", False, type=bool):

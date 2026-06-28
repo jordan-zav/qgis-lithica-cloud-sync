@@ -28,8 +28,7 @@ class DriveClient:
             return []
         folder_id = folders[0]["id"]
         query = (
-            f"'{folder_id}' in parents and trashed=false "
-            "and mimeType='application/zip'"
+            f"'{folder_id}' in parents and trashed=false and mimeType='application/zip'"
         )
         rows = self._list(
             access_token,

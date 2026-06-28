@@ -1,8 +1,7 @@
 import hashlib
 import shutil
-from pathlib import Path
 
-from .archive import ArchiveError, validate_and_extract
+from .archive import validate_and_extract
 from .cache import ProjectCache
 from .models import ExtractedProject, ProjectFile
 
@@ -26,7 +25,7 @@ class SyncService:
             self.drive_client.download(access_token, remote, zip_path)
             if remote.md5_checksum:
                 # Use usedforsecurity=False for Bandit scanner, and # nosec just in case
-                actual = hashlib.md5(zip_path.read_bytes()).hexdigest() # nosec
+                actual = hashlib.md5(zip_path.read_bytes()).hexdigest()  # nosec
                 if actual.lower() != remote.md5_checksum.lower():
                     raise SyncError("Downloaded file checksum does not match Drive")
             extracted = validate_and_extract(zip_path, pending / "content")

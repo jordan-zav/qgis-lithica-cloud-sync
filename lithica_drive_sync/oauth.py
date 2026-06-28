@@ -2,7 +2,6 @@ import base64
 import hashlib
 import json
 import secrets
-import threading
 import urllib.error
 import urllib.parse
 import urllib.request
