@@ -19,6 +19,11 @@ TEXT = {
         "website": "Official Website (gisgeo.dev)",
         "download_play": "Download Lithica Explorer on Google Play",
         "linkedin": "LinkedIn Profile (Jordan Zavaleta)",
+        "account_group": "Google Drive",
+        "auth_expired": "Google authorization expired; reconnect",
+        "task_oauth": "Lithica OAuth",
+        "task_list": "Lithica Drive list",
+        "task_download": "Lithica project download",
     },
     "es": {
         "title": "Lithica Cloud Sync",
@@ -40,6 +45,11 @@ TEXT = {
         "website": "Página Web oficial (gisgeo.dev)",
         "download_play": "Descarga Lithica Explorer en Google Play",
         "linkedin": "Perfil en LinkedIn (Jordan Zavaleta)",
+        "account_group": "Google Drive",
+        "auth_expired": "Autorización de Google expirada; vuelve a conectar",
+        "task_oauth": "Lithica OAuth",
+        "task_list": "Listar proyectos Lithica",
+        "task_download": "Descargar proyecto Lithica",
     },
 }
 

@@ -165,7 +165,7 @@ class LithicaDriveDock(QDockWidget):
             layout.addWidget(logo_label)
         
         # Grupo: Cuenta / Conexión
-        group_account = QGroupBox("Google Drive")
+        group_account = QGroupBox(self.tr.text("account_group"))
         layout_account = QVBoxLayout(group_account)
         layout_account.setSpacing(8)
         self.status = QLabel()
@@ -251,7 +251,7 @@ class LithicaDriveDock(QDockWidget):
             raise RuntimeError(self.tr.text("disconnected"))
         if token.needs_refresh():
             if not token.refresh_token:
-                raise RuntimeError("Google authorization expired; reconnect")
+                raise RuntimeError(self.tr.text("auth_expired"))
             token = refresh_access_token(self._oauth_config(), token.refresh_token)
             self.credentials.save(token)
         return token.access_token
@@ -275,7 +275,7 @@ class LithicaDriveDock(QDockWidget):
 
     def connect_drive(self):
         self._run_task(
-            "Lithica OAuth",
+            self.tr.text("task_oauth"),
             lambda: connect_and_list(
                 authorize_interactive,
                 self._oauth_config(),
@@ -297,7 +297,7 @@ class LithicaDriveDock(QDockWidget):
 
     def refresh_projects(self):
         self._run_task(
-            "Lithica Drive list",
+            self.tr.text("task_list"),
             lambda: self.drive.list_projects(self._active_token()),
             self._projects_loaded,
         )
@@ -317,7 +317,7 @@ class LithicaDriveDock(QDockWidget):
             return
         remote = self.projects[index]
         self._run_task(
-            "Lithica project download",
+            self.tr.text("task_download"),
             lambda: self.sync.download_project(self._active_token(), remote),
             lambda result: open_project_layers(self.iface, result),
         )
