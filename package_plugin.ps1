@@ -6,7 +6,7 @@ $source = Join-Path $scriptRoot "lithica_drive_sync"
 $artifacts = Join-Path $workspaceRoot "artifacts"
 $stagingRoot = Join-Path $artifacts "_qgis_plugin_staging"
 $stagingPlugin = Join-Path $stagingRoot "lithica_drive_sync"
-$target = Join-Path $artifacts "Lithica Cloud Sync-1.0.0.zip"
+$target = Join-Path $artifacts "Lithica Cloud Sync-1.0.1.zip"
 $temporaryTarget = Join-Path $artifacts ("Lithica Cloud Sync-" + [guid]::NewGuid().ToString("N") + ".tmp.zip")
 
 $resolvedWorkspace = [System.IO.Path]::GetFullPath($workspaceRoot)
