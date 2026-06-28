@@ -32,5 +32,5 @@ tags=lithica,geology,google drive,geopackage,field mapping,lithica explorer
 experimental=True
 deprecated=False
 homepage=https://gisgeo.dev
-repository=https://github.com/jordan-zav/qgis-lithica-cloud-sync
-tracker=https://github.com/jordan-zav/qgis-lithica-cloud-sync/issues
+repository=https://github.com/jordan-zav/lithica-cloud-sync
+tracker=https://github.com/jordan-zav/lithica-cloud-sync/issues
