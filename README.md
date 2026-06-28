@@ -2,9 +2,6 @@
 
 Plugin experimental de solo lectura que descarga proyectos de Lithica Explorer desde Google Drive y abre observations.gpkg en QGIS.
 
-## Costo
-
-Google Drive API no tiene costo adicional para uso estándar. Este plugin no utiliza servidores, Cloud Storage, Cloud Run, Functions, máquinas virtuales ni bases de datos cloud. No asocies una cuenta de facturación al proyecto de desarrollo.
 
 ## Requisitos
 
