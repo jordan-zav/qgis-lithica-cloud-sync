@@ -1,0 +1,35 @@
+[general]
+name=Lithica Cloud Sync
+description=Synchronize Lithica Explorer projects from Google Drive | Sincroniza proyectos de Lithica Explorer desde Google Drive
+about=Lithica Cloud Sync bridges the gap between field data collection and desktop GIS analysis. It provides seamless, read-only synchronization of Lithica Explorer projects stored in Google Drive directly into QGIS.
+ 
+ Key features:
+ - Direct connection to Google Drive using secure OAuth 2.0.
+ - Automatic detection and listing of Lithica Explorer project backups.
+ - One-click download and extraction of project ZIP archives.
+ - Instant loading of all layers and tables within the project's GeoPackage, preserving field data structure.
+ 
+ Designed for geologists and field mappers to instantly visualize structural data, observations, and media collected with the Lithica Explorer Android app.
+ 
+ --- ESPAÑOL ---
+ 
+ Lithica Cloud Sync cierra la brecha entre la recolección de datos en campo y el análisis en escritorio. Proporciona una sincronización fluida y de solo lectura de los proyectos de Lithica Explorer almacenados en Google Drive directamente a QGIS.
+ 
+ Características principales:
+ - Conexión directa a Google Drive mediante OAuth 2.0 seguro.
+ - Detección automática de copias de seguridad de proyectos de Lithica Explorer.
+ - Descarga y extracción de archivos ZIP del proyecto con un solo clic.
+ - Carga instantánea de todas las capas y tablas del GeoPackage del proyecto, conservando la estructura de datos del campo.
+ 
+ Diseñado para geólogos y mapeadores de campo para visualizar al instante datos estructurales, observaciones y elementos multimedia recolectados con la app móvil Lithica Explorer.
+version=0.1.0
+qgisMinimumVersion=3.34
+author=Jordan Zavaleta
+email=jordanzav@gisgeo.dev
+category=Vector
+tags=lithica,geology,google drive,geopackage,field mapping,lithica explorer
+experimental=True
+deprecated=False
+homepage=https://gisgeo.dev
+repository=https://github.com/jordan-zav/qgis-lithica-cloud-sync
+tracker=https://github.com/jordan-zav/qgis-lithica-cloud-sync/issues
