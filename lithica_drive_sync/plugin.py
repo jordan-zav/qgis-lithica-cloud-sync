@@ -3,6 +3,7 @@ from pathlib import Path
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction
+from qgis.core import QgsSettings
 
 from .dock import LithicaDriveDock
 
@@ -24,8 +25,11 @@ class LithicaDriveSyncPlugin:
         self.iface.addPluginToVectorMenu("Lithica Cloud Sync", self.action)
         self.iface.addToolBarIcon(self.action)
         
-        # Show the dock widget automatically when the plugin is loaded/installed
-        self.show_dock()
+        # Show the dock widget automatically only on first installation/run
+        settings = QgsSettings()
+        if not settings.value("LithicaDriveSync/has_run_before", False, type=bool):
+            self.show_dock()
+            settings.setValue("LithicaDriveSync/has_run_before", True)
 
     def show_dock(self):
         if self.dock is None:
