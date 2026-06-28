@@ -96,7 +96,7 @@ class AboutDialog(QDialog):
         layout.setSpacing(15)
         
         logo_label = QLabel()
-        logo_path = str(plugin_dir / "app_logo.png")
+        logo_path = str(plugin_dir / "app_logo_no_name.png")
         pixmap = QPixmap(logo_path)
         if not pixmap.isNull():
             logo_label.setPixmap(pixmap.scaledToHeight(80, Qt.SmoothTransformation))
