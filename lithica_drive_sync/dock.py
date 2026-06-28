@@ -27,64 +27,6 @@ from .oauth import authorize_interactive, refresh_access_token
 from .sync_service import SyncService
 
 
-STYLESHEET = """
-QGroupBox {
-    font-weight: bold;
-    border: 1px solid #dcdcdc;
-    border-radius: 6px;
-    margin-top: 12px;
-    padding-top: 15px;
-}
-QGroupBox::title {
-    subcontrol-origin: margin;
-    subcontrol-position: top left;
-    left: 10px;
-    padding: 0 5px;
-    color: #2c3e50;
-}
-QPushButton {
-    padding: 6px 12px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    background-color: #f8f9fa;
-    color: #333;
-}
-QPushButton:hover {
-    background-color: #e2e6ea;
-    border: 1px solid #bbb;
-}
-QPushButton:pressed {
-    background-color: #dae0e5;
-}
-QPushButton#primaryButton {
-    background-color: #2e7d32;
-    color: white;
-    border: 1px solid #1b5e20;
-    font-weight: bold;
-}
-QPushButton#primaryButton:hover {
-    background-color: #388e3c;
-}
-QPushButton#primaryButton:pressed {
-    background-color: #1b5e20;
-}
-QPushButton#aboutButton {
-    background: transparent;
-    border: none;
-    color: #1976d2;
-    text-decoration: underline;
-    margin-top: 10px;
-}
-QPushButton#aboutButton:hover {
-    color: #115293;
-}
-QLabel#statusLabel {
-    color: #555;
-    font-style: italic;
-    padding: 2px 0px;
-}
-"""
-
 class AboutDialog(QDialog):
     def __init__(self, parent=None, plugin_dir=None, tr=None):
         super().__init__(parent)
@@ -212,7 +154,7 @@ class LithicaDriveDock(QDockWidget):
         layout.addWidget(self.about_button)
         
         self.setWidget(body)
-        self.setStyleSheet(STYLESHEET)
+        
         
         self.connect_button.clicked.connect(self.connect_drive)
         self.disconnect_button.clicked.connect(self.disconnect_drive)

@@ -57,4 +57,4 @@ class ProjectCache:
         if resolved != self.root and self.root not in resolved.parents:
             raise CacheError("Refusing to clear a path outside cache")
         if resolved.exists():
-            shutil.rmtree(resolved)
+            shutil.rmtree(resolved, ignore_errors=True)
