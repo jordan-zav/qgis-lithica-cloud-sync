@@ -4,11 +4,12 @@ from qgis.PyQt.QtCore import QLocale, Qt
 from qgis.PyQt.QtGui import QIcon, QPixmap
 from qgis.PyQt.QtWidgets import (
     QComboBox,
+    QDialog,
+    QDialogButtonBox,
     QDockWidget,
     QGroupBox,
     QHBoxLayout,
     QLabel,
-    QMessageBox,
     QPushButton,
     QVBoxLayout,
     QWidget,
@@ -24,6 +25,106 @@ from .i18n import Translator
 from .layers import open_project_layers
 from .oauth import authorize_interactive, refresh_access_token
 from .sync_service import SyncService
+
+
+STYLESHEET = """
+QGroupBox {
+    font-weight: bold;
+    border: 1px solid #dcdcdc;
+    border-radius: 6px;
+    margin-top: 12px;
+    padding-top: 15px;
+}
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    left: 10px;
+    padding: 0 5px;
+    color: #2c3e50;
+}
+QPushButton {
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #f8f9fa;
+    color: #333;
+}
+QPushButton:hover {
+    background-color: #e2e6ea;
+    border: 1px solid #bbb;
+}
+QPushButton:pressed {
+    background-color: #dae0e5;
+}
+QPushButton#primaryButton {
+    background-color: #2e7d32;
+    color: white;
+    border: 1px solid #1b5e20;
+    font-weight: bold;
+}
+QPushButton#primaryButton:hover {
+    background-color: #388e3c;
+}
+QPushButton#primaryButton:pressed {
+    background-color: #1b5e20;
+}
+QPushButton#aboutButton {
+    background: transparent;
+    border: none;
+    color: #1976d2;
+    text-decoration: underline;
+    margin-top: 10px;
+}
+QPushButton#aboutButton:hover {
+    color: #115293;
+}
+QLabel#statusLabel {
+    color: #555;
+    font-style: italic;
+    padding: 2px 0px;
+}
+"""
+
+class AboutDialog(QDialog):
+    def __init__(self, parent=None, plugin_dir=None):
+        super().__init__(parent)
+        self.setWindowTitle("Acerca de Lithica Cloud Sync")
+        self.setMinimumWidth(400)
+        
+        layout = QVBoxLayout(self)
+        layout.setContentsMargins(30, 30, 30, 20)
+        layout.setSpacing(15)
+        
+        logo_label = QLabel()
+        logo_path = str(plugin_dir / "app_logo.png")
+        pixmap = QPixmap(logo_path)
+        if not pixmap.isNull():
+            logo_label.setPixmap(pixmap.scaledToHeight(80, Qt.SmoothTransformation))
+            logo_label.setAlignment(Qt.AlignCenter)
+            layout.addWidget(logo_label)
+        
+        title = QLabel("<h2>Lithica Cloud Sync</h2>")
+        title.setAlignment(Qt.AlignCenter)
+        layout.addWidget(title)
+        
+        subtitle = QLabel("Desarrollado por <b>GisGeo Dev</b>")
+        subtitle.setAlignment(Qt.AlignCenter)
+        layout.addWidget(subtitle)
+        
+        links = QLabel(
+            "<a href='https://gisgeo.dev' style='text-decoration: none; color: #1976d2;'>Página Web oficial (gisgeo.dev)</a><br><br>"
+            "<a href='https://play.google.com/store/apps/details?id=com.gisgeodev.lithicaexplorer' style='text-decoration: none; color: #1976d2;'>Descarga Lithica Explorer en Google Play</a><br><br>"
+            "<a href='https://www.linkedin.com/in/jordan-zav/' style='text-decoration: none; color: #1976d2;'>Perfil en LinkedIn (Jordan Zavaleta)</a>"
+        )
+        links.setAlignment(Qt.AlignCenter)
+        links.setOpenExternalLinks(True)
+        layout.addWidget(links)
+        
+        buttons = QDialogButtonBox(QDialogButtonBox.Ok)
+        buttons.accepted.connect(self.accept)
+        layout.addWidget(buttons)
+        
+        self.setStyleSheet("QDialog { background-color: white; } QLabel { color: #333; }")
 
 
 class LithicaDriveDock(QDockWidget):
@@ -50,6 +151,8 @@ class LithicaDriveDock(QDockWidget):
     def _build_ui(self):
         body = QWidget(self)
         layout = QVBoxLayout(body)
+        layout.setSpacing(12)
+        layout.setContentsMargins(12, 12, 12, 12)
         
         # Logo
         logo_label = QLabel()
@@ -58,12 +161,15 @@ class LithicaDriveDock(QDockWidget):
         if not pixmap.isNull():
             logo_label.setPixmap(pixmap.scaledToHeight(60, Qt.SmoothTransformation))
             logo_label.setAlignment(Qt.AlignCenter)
+            logo_label.setContentsMargins(0, 0, 0, 10)
             layout.addWidget(logo_label)
         
         # Grupo: Cuenta / Conexión
         group_account = QGroupBox("Google Drive")
         layout_account = QVBoxLayout(group_account)
+        layout_account.setSpacing(8)
         self.status = QLabel()
+        self.status.setObjectName("statusLabel")
         layout_account.addWidget(self.status)
         
         row_connect = QHBoxLayout()
@@ -77,13 +183,16 @@ class LithicaDriveDock(QDockWidget):
         # Grupo: Proyectos Lithica
         group_projects = QGroupBox("Proyectos")
         layout_projects = QVBoxLayout(group_projects)
+        layout_projects.setSpacing(10)
         self.refresh_button = QPushButton(self.tr.text("refresh"))
         layout_projects.addWidget(self.refresh_button)
         
         self.project_combo = QComboBox()
+        self.project_combo.setMinimumHeight(28)
         layout_projects.addWidget(self.project_combo)
         
         self.download_button = QPushButton(self.tr.text("download"))
+        self.download_button.setObjectName("primaryButton")
         layout_projects.addWidget(self.download_button)
         layout.addWidget(group_projects)
         
@@ -98,9 +207,12 @@ class LithicaDriveDock(QDockWidget):
         
         # Botón de créditos
         self.about_button = QPushButton("Acerca de / Créditos")
+        self.about_button.setObjectName("aboutButton")
+        self.about_button.setCursor(Qt.PointingHandCursor)
         layout.addWidget(self.about_button)
         
         self.setWidget(body)
+        self.setStyleSheet(STYLESHEET)
         
         self.connect_button.clicked.connect(self.connect_drive)
         self.disconnect_button.clicked.connect(self.disconnect_drive)
@@ -216,22 +328,5 @@ class LithicaDriveDock(QDockWidget):
         self.status.setText(self.tr.text("ready"))
 
     def show_about_dialog(self):
-        msg = QMessageBox(self)
-        msg.setWindowTitle("Acerca de Lithica Cloud Sync")
-        logo_path = str(self.plugin_dir / "app_logo.png")
-        pixmap = QPixmap(logo_path)
-        if not pixmap.isNull():
-            msg.setIconPixmap(pixmap.scaledToHeight(64, Qt.SmoothTransformation))
-            msg.setWindowIcon(QIcon(logo_path))
-            
-        msg.setTextFormat(Qt.RichText)
-        msg.setText(
-            "<h3>Lithica Cloud Sync</h3>"
-            "<p>Desarrollado por <b>GisGeo Dev</b></p>"
-            "<ul>"
-            "<li><a href='https://gisgeo.dev'>Página Web oficial (gisgeo.dev)</a></li>"
-            "<li><a href='https://play.google.com/store/apps/details?id=com.gisgeodev.lithicaexplorer'>Descarga Lithica Explorer en Google Play</a></li>"
-            "<li><a href='https://www.linkedin.com/in/jordan-zav/'>Perfil en LinkedIn (Jordan Zavaleta)</a></li>"
-            "</ul>"
-        )
-        msg.exec_()
+        dialog = AboutDialog(self, self.plugin_dir)
+        dialog.exec_()
