@@ -231,7 +231,7 @@ class LithicaDriveDock(QDockWidget):
             "<ul>"
             "<li><a href='https://gisgeo.dev'>Página Web oficial (gisgeo.dev)</a></li>"
             "<li><a href='https://play.google.com/store/apps/details?id=com.gisgeodev.lithicaexplorer'>Descarga Lithica Explorer en Google Play</a></li>"
-            "<li><a href='https://www.linkedin.com/in/jordan-zav/'>Perfil en LinkedIn (Jordan Zav)</a></li>"
+            "<li><a href='https://www.linkedin.com/in/jordan-zav/'>Perfil en LinkedIn (Jordan Zavaleta)</a></li>"
             "</ul>"
         )
         msg.exec_()
