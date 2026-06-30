@@ -15,7 +15,7 @@ Con un par de clics, podrás importar los datos espaciales (`observations.gpkg`)
 1. Descarga la última versión en formato `.zip` desde la sección de **Releases** de este repositorio.
 2. Abre QGIS y dirígete al menú **Complementos** > **Administrar e instalar complementos**.
 3. Selecciona la pestaña **Instalar a partir de ZIP**.
-4. Busca el archivo descargado (`Lithica Cloud Sync-0.1.0.zip`) y haz clic en instalar.
+4. Busca el archivo descargado (`Lithica Cloud Sync-1.0.0.zip`) y haz clic en instalar.
 5. El panel de Lithica Cloud Sync aparecerá disponible para conectarte a tu cuenta.
 
 ## Uso
